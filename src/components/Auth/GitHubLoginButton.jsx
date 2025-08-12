@@ -5,7 +5,7 @@ export default function GitHubLoginButton() {
   const handleLogin = () => {
     // Full navigation — NOT fetch/axios.
     // This lets the browser follow the redirect chain and GitHub auth page.
-    window.location.href = '${process.env.REACT_APP_API_BASE}/auth/github';
+    window.location.href = `${process.env.REACT_APP_API_BASE}/auth/github`;
     // alternative: window.location.assign('http://localhost:5000/auth/github');
   };
 

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
-const VERIFY_URL = '${process.env.REACT_APP_API_BASE}/github/repos';
+const VERIFY_URL = `${process.env.REACT_APP_API_BASE}/github/repos`; // Adjust this to your actual verification endpoint
 
 export default function PrivateRoute({ children }) {
   const [checking, setChecking] = useState(true);
