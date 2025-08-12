@@ -1,38 +1,334 @@
-.App {
-  text-align: center;
+/* common.css
+   Cleaned, de-duplicated and consistent styles.
+   Keep class names unchanged so it is safe to drop in.
+*/
+
+/* -------------------------
+   Theme variables (single source of truth)
+   ------------------------- */
+:root{
+  --bg: #f8f9fa;
+  --surface: #ffffff;
+  --muted: #f3f4f6;
+  --border: #e5e7eb;
+  --line: #ddd;
+  --text: #1f2328;
+  --mutedText: #555;
+  --accent: #2563eb;    /* blue */
+  --accent-2: #16a34a;  /* green */
+  --shadow: rgba(27,31,35,0.06);
+  --radius: 8px;
+  --pad-sm: 8px;
+  --pad-md: 12px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* -------------------------
+   Page layout & typography
+   ------------------------- */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Headings */
+h1, h2, h3 {
+  color: var(--text);
+  margin: 0 0 12px 0;
+  font-weight: 600;
+}
+
+/* Component heading/tab style (keeps same class name) */
+.component-heading {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #e6e9ef;
+}
+
+/* -------------------------
+   Generic card / container
+   ------------------------- */
+.component-card {
+  background: var(--surface);
+  padding: 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px var(--shadow);
+  margin-bottom: 16px;
+}
+
+/* -------------------------
+   Buttons (generic)
+   ------------------------- */
+button {
+  font-family: inherit;
+  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #cfcfcf;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+button:focus { outline: 2px solid rgba(37,99,235,0.15); outline-offset: 2px; }
+
+/* subtle hover */
+button:hover { background: var(--muted); }
+
+/* -------------------------
+   Primary / action buttons (preserve classnames used)
+   ------------------------- */
+/* Download & other blue buttons */
+.download-btn {
+  background-color: var(--accent);
+  color: #fff;
+  border: 1px solid rgba(37,99,235,0.9);
+}
+.download-btn:hover { opacity: 0.95; }
+
+/* Generate button (green) */
+.generate-btn {
+  background-color: var(--accent-2);
+  color: #fff;
+  border: 1px solid rgba(22,163,74,0.95);
+}
+.generate-btn:hover { opacity: 0.95; }
+.generate-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* -------------------------
+   GitHub login button (keep classname)
+   ------------------------- */
+.github-login-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #24292f;
+  color: white;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+.github-login-btn:hover { background-color: #1b1f23; }
+
+/* -------------------------
+   Repo list (keep classname & button usage)
+   ------------------------- */
+.repo-list {
   display: flex;
   flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+}
+
+.repo-list button {
+  background-color: var(--surface);
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color .16s ease, box-shadow .16s ease;
+}
+
+.repo-list button:hover {
+  background-color: var(--muted);
+  box-shadow: 0 2px 6px var(--shadow);
+}
+
+.repo-list button:active {
+  transform: translateY(0.5px);
+}
+
+/* scrollable container helper */
+.scrollable-list {
+  max-height: 360px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+/* -------------------------
+   File list (two sets of classnames kept for compatibility)
+   .file-list and .file-item  (and .file-list-item if used)
+   ------------------------- */
+.file-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.file-list-item,
+.file-item {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid #e6e6e6;
+  padding: 10px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color .14s ease, border-color .14s ease;
+  text-align: left;
 }
 
-.App-link {
-  color: #61dafb;
+.file-list-item:hover,
+.file-item:hover {
+  background: #f3f8ff;
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.file-icon {
+  font-size: 16px;
+}
+
+.file-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* fallback older file-item variants */
+.file-item:last-child { border-bottom: none; }
+
+/* -------------------------
+   File content viewer
+   ------------------------- */
+.file-content-loading {
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--mutedText);
+  padding: 12px;
+  background-color: var(--bg);
+  border-radius: 6px;
+  text-align: center;
+  border: 1px solid var(--line);
+}
+
+.file-content-container {
+  background-color: #f5f7fa;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  overflow-x: auto;
+  box-shadow: 0 1px 2px var(--shadow);
+}
+
+.file-content-text {
+  white-space: pre-wrap;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+/* also keep legacy classname .file-content-viewer */
+.file-content-viewer {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  padding: 12px;
+  border-radius: 6px;
+  font-family: monospace;
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+/* -------------------------
+   SummaryViewer & TestCaseViewer
+   ------------------------- */
+.summary-viewer, .testcase-viewer {
+  border: 1px solid var(--line);
+  background-color: var(--surface);
+  padding: 12px;
+  border-radius: 6px;
+  min-height: 120px;
+}
+
+/* Testcase box (keeps classname .testcase-box for file-specific CSS) */
+.testcase-box {
+  background-color: #f9fafb;
+  border: 1px solid #e9eef8;
+  border-radius: 8px;
+  padding: 14px;
+  white-space: pre-wrap;
+  font-family: monospace;
+  font-size: 14px;
+  overflow-x: auto;
+  max-height: 420px;
+}
+
+/* Summary viewer text specifics */
+.summary-viewer h3, .testcase-viewer h3 { margin-top: 0; color: #444; }
+
+/* -------------------------
+   Utility helpers
+   ------------------------- */
+.space-y-2 > * + * { margin-top: 8px; }
+.space-y-4 > * + * { margin-top: 16px; }
+.p-4 { padding: 16px; }
+.rounded { border-radius: 6px; }
+
+/* -------------------------
+   Layout helpers for TestCasePage
+   ------------------------- */
+.testcase-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.testcase-layout-full { grid-column: span 2; }
+/* heading link - no underline, keep color and keyboard focus */
+.heading-link {
+  color: inherit;            /* keep same color as surrounding heading */
+  text-decoration: none;     /* remove underline */
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* keep hover subtle but still no underline */
+.heading-link:hover {
+  opacity: 0.95;
+  text-decoration: none;
+}
+
+/* accessible focus ring for keyboard users */
+.heading-link:focus,
+.heading-link:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.15);
+  outline-offset: 3px;
+}
+
+
+/* -------------------------
+   Small responsive tweaks
+   ------------------------- */
+@media (max-width: 800px) {
+  .testcase-layout { grid-template-columns: 1fr; }
+  .page-container { padding: 12px; }
 }
